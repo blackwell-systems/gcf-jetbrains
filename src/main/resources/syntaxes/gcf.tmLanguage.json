@@ -1,0 +1,147 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "GCF",
+  "scopeName": "source.gcf",
+  "patterns": [
+    { "include": "#header-line" },
+    { "include": "#summary-trailer" },
+    { "include": "#section-header" },
+    { "include": "#attachment-declaration" },
+    { "include": "#comment" },
+    { "include": "#data-line" }
+  ],
+  "repository": {
+    "header-line": {
+      "comment": "First line: GCF profile=generic or GCF profile=graph tool=... key=value ...",
+      "match": "^(GCF)\\s+(.*)",
+      "captures": {
+        "1": { "name": "keyword.control.header.gcf" },
+        "2": { "patterns": [{ "include": "#key-value-pair" }] }
+      }
+    },
+    "summary-trailer": {
+      "comment": "Summary line: ##! summary counts=N,M",
+      "match": "^(##!)\\s+(summary)\\s*(.*)",
+      "captures": {
+        "1": { "name": "keyword.control.summary.gcf" },
+        "2": { "name": "keyword.other.summary.gcf" },
+        "3": { "patterns": [{ "include": "#key-value-pair" }] }
+      }
+    },
+    "section-header": {
+      "comment": "Section headers: ## name, ## name [N], ## name [N]{field1,field2}",
+      "match": "^(##)\\s+(\\w+)(?:\\s+(\\[\\d+\\]))?(?:(\\{[^}]*\\}))?",
+      "captures": {
+        "1": { "name": "keyword.control.section.gcf" },
+        "2": { "name": "entity.name.section.gcf" },
+        "3": { "name": "constant.numeric.count.gcf" },
+        "4": { "name": "variable.parameter.fields.gcf" }
+      }
+    },
+    "attachment-declaration": {
+      "comment": "Attachment declaration lines: .fieldname {} or .fieldname {fields}",
+      "match": "^(\\.[a-zA-Z_]\\w*)\\s*(\\{[^}]*\\})",
+      "captures": {
+        "1": { "name": "entity.name.tag.attachment.gcf" },
+        "2": { "name": "variable.parameter.fields.gcf" }
+      }
+    },
+    "comment": {
+      "comment": "Line comments starting with # (but not ## section headers or ##! summary)",
+      "match": "^(#)(?!#|!)\\s*(.*)",
+      "captures": {
+        "1": { "name": "punctuation.definition.comment.gcf" },
+        "2": { "name": "comment.line.gcf" }
+      }
+    },
+    "data-line": {
+      "comment": "Data lines containing values, pipes, key=value, symbol IDs, etc.",
+      "patterns": [
+        { "include": "#edge-notation" },
+        { "include": "#symbol-id" },
+        { "include": "#key-value-pair" },
+        { "include": "#quoted-string" },
+        { "include": "#attachment-marker" },
+        { "include": "#pipe-separator" },
+        { "include": "#boolean" },
+        { "include": "#null-literal" },
+        { "include": "#absent-literal" },
+        { "include": "#number" }
+      ]
+    },
+    "edge-notation": {
+      "comment": "Edge notation: @0<@1 or @0>@1 followed by edge type",
+      "match": "(@\\d+)(<|>)(@\\d+)\\s+(\\w+)",
+      "captures": {
+        "1": { "name": "variable.other.symbol-id.gcf" },
+        "2": { "name": "keyword.operator.edge.gcf" },
+        "3": { "name": "variable.other.symbol-id.gcf" },
+        "4": { "name": "support.type.edge-type.gcf" }
+      }
+    },
+    "symbol-id": {
+      "comment": "Symbol IDs: @0, @1, @123",
+      "match": "@\\d+",
+      "name": "variable.other.symbol-id.gcf"
+    },
+    "key-value-pair": {
+      "comment": "Key=value pairs in headers and data lines",
+      "match": "([a-zA-Z_][a-zA-Z0-9_]*)\\s*(=)\\s*",
+      "captures": {
+        "1": { "name": "entity.other.attribute-name.gcf" },
+        "2": { "name": "keyword.operator.assignment.gcf" }
+      }
+    },
+    "quoted-string": {
+      "comment": "Double-quoted strings with escape sequences",
+      "begin": "\"",
+      "end": "\"",
+      "name": "string.quoted.double.gcf",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.string.begin.gcf" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.string.end.gcf" }
+      },
+      "patterns": [
+        {
+          "match": "\\\\(?:[\"\\\\/bfnrt]|u[0-9a-fA-F]{4})",
+          "name": "constant.character.escape.gcf"
+        }
+      ]
+    },
+    "attachment-marker": {
+      "comment": "Attachment markers: ^ or ^{fields}",
+      "match": "(\\^)(\\{[^}]*\\})?",
+      "captures": {
+        "1": { "name": "keyword.operator.attachment.gcf" },
+        "2": { "name": "variable.parameter.fields.gcf" }
+      }
+    },
+    "pipe-separator": {
+      "comment": "Pipe separators in tabular rows",
+      "match": "\\|",
+      "name": "punctuation.separator.pipe.gcf"
+    },
+    "boolean": {
+      "comment": "Boolean literals: true, false",
+      "match": "\\b(true|false)\\b",
+      "name": "constant.language.boolean.gcf"
+    },
+    "null-literal": {
+      "comment": "Null literal: standalone dash",
+      "match": "(?<=\\||^)-(?=\\||$|\\s)",
+      "name": "constant.language.null.gcf"
+    },
+    "absent-literal": {
+      "comment": "Absent literal: standalone tilde",
+      "match": "(?<=\\||^)~(?=\\||$|\\s)",
+      "name": "constant.language.absent.gcf"
+    },
+    "number": {
+      "comment": "Numeric literals (integers and decimals, including negative and exponent)",
+      "match": "(?<=[|= \\t]|^)-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?(?=\\||$|\\s|,)",
+      "name": "constant.numeric.gcf"
+    }
+  }
+}

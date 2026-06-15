@@ -1,0 +1,53 @@
+<idea-plugin>
+    <id>com.blackwellsystems.gcf</id>
+    <name>GCF - Graph Compact Format</name>
+    <version>0.1.0</version>
+    <vendor email="daynajblackwell@gmail.com" url="https://blackwell-systems.com">Blackwell Systems</vendor>
+
+    <description><![CDATA[
+        <p>Syntax highlighting for <b>GCF (Graph Compact Format)</b>, the AI-native wire format for structured data.</p>
+
+        <p>GCF delivers <b>71% fewer tokens than JSON</b> while maintaining perfect round-trip fidelity across
+        JSON, YAML, CSV, TOML, and MessagePack. Designed for LLM tool responses, MCP servers, and
+        agent-to-agent communication.</p>
+
+        <h3>Features</h3>
+        <ul>
+            <li>Syntax highlighting for <code>.gcf</code> files</li>
+            <li>Highlights headers, section markers, symbol IDs, edge notation, strings, numbers, booleans, and more</li>
+            <li>Works in all JetBrains IDEs: IntelliJ IDEA, PyCharm, WebStorm, GoLand, RustRover, CLion, and others</li>
+        </ul>
+
+        <h3>Links</h3>
+        <ul>
+            <li><a href="https://gcformat.com">GCF Documentation</a></li>
+            <li><a href="https://github.com/blackwell-systems/gcf">GCF Specification</a></li>
+        </ul>
+    ]]></description>
+
+    <change-notes><![CDATA[
+        <h3>0.1.0</h3>
+        <ul>
+            <li>Initial release</li>
+            <li>Syntax highlighting for GCF files via TextMate grammar</li>
+        </ul>
+    ]]></change-notes>
+
+    <idea-version since-build="231" />
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>org.jetbrains.plugins.textmate</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType
+                name="GCF"
+                implementationClass="com.blackwellsystems.gcf.GcfFileType"
+                fieldName="INSTANCE"
+                language="GCF"
+                extensions="gcf" />
+    </extensions>
+
+    <extensions defaultExtensionNs="org.jetbrains.plugins.textmate">
+        <bundleProvider implementation="com.blackwellsystems.gcf.GcfTextMateBundleProvider" />
+    </extensions>
+</idea-plugin>
