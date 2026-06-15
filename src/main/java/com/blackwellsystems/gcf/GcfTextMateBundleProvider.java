@@ -3,26 +3,22 @@ package com.blackwellsystems.gcf;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.plugins.textmate.api.TextMateBundleProvider;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
-/**
- * Provides the GCF TextMate grammar bundle to the JetBrains TextMate plugin.
- */
 public final class GcfTextMateBundleProvider implements TextMateBundleProvider {
 
     @NotNull
     @Override
-    public Collection<PluginBundle> getBundles() {
+    public List<PluginBundle> getBundles() {
         try {
             Path bundleDir = extractBundle();
-            return Collections.singleton(new PluginBundle("GCF", bundleDir));
+            return Collections.singletonList(new PluginBundle("GCF", bundleDir));
         } catch (IOException e) {
             return Collections.emptyList();
         }
@@ -35,7 +31,6 @@ public final class GcfTextMateBundleProvider implements TextMateBundleProvider {
         Path syntaxesDir = tempDir.resolve("syntaxes");
         Files.createDirectories(syntaxesDir);
 
-        // Extract the grammar file from plugin resources
         try (InputStream is = getClass().getResourceAsStream("/syntaxes/gcf.tmLanguage.json")) {
             if (is == null) {
                 throw new IOException("GCF grammar resource not found");
@@ -45,25 +40,23 @@ public final class GcfTextMateBundleProvider implements TextMateBundleProvider {
             grammarFile.toFile().deleteOnExit();
         }
 
-        // Write the package.json that TextMate bundle loading expects
         Path packageJson = tempDir.resolve("package.json");
-        Files.writeString(packageJson, """
-                {
-                  "name": "gcf",
-                  "contributes": {
-                    "languages": [{
-                      "id": "GCF",
-                      "aliases": ["GCF", "Graph Compact Format"],
-                      "extensions": [".gcf"]
-                    }],
-                    "grammars": [{
-                      "language": "GCF",
-                      "scopeName": "source.gcf",
-                      "path": "./syntaxes/gcf.tmLanguage.json"
-                    }]
-                  }
-                }
-                """);
+        Files.writeString(packageJson,
+            "{\n" +
+            "  \"name\": \"gcf\",\n" +
+            "  \"contributes\": {\n" +
+            "    \"languages\": [{\n" +
+            "      \"id\": \"GCF\",\n" +
+            "      \"aliases\": [\"GCF\", \"Graph Compact Format\"],\n" +
+            "      \"extensions\": [\".gcf\"]\n" +
+            "    }],\n" +
+            "    \"grammars\": [{\n" +
+            "      \"language\": \"GCF\",\n" +
+            "      \"scopeName\": \"source.gcf\",\n" +
+            "      \"path\": \"./syntaxes/gcf.tmLanguage.json\"\n" +
+            "    }]\n" +
+            "  }\n" +
+            "}\n");
         packageJson.toFile().deleteOnExit();
         syntaxesDir.toFile().deleteOnExit();
 
