@@ -5,23 +5,40 @@
     <vendor email="dayna@blackwell-systems.com" url="https://blackwell-systems.com">Blackwell Systems</vendor>
 
     <description><![CDATA[
-        <p>Syntax highlighting for <b>GCF (Graph Compact Format)</b>, the AI-native wire format for structured data.</p>
+        <p><b>GCF (Graph Compact Format)</b>: The AI-native wire format for structured data.
+        <b>50-92% fewer tokens than JSON. 100% comprehension on every frontier model. Zero training required.</b></p>
 
-        <p>GCF delivers <b>71% fewer tokens than JSON</b> while maintaining perfect round-trip fidelity across
-        JSON, YAML, CSV, TOML, and MessagePack. Designed for LLM tool responses, MCP servers, and
-        agent-to-agent communication.</p>
+        <p>Every time an MCP server, agent, or tool sends structured data to an LLM, JSON wastes 81% of tokens
+        on repeated field names and structural characters. GCF declares field names once in a header. Rows are
+        positional pipe-separated values. Nested objects flatten into path columns. Same data, dramatically fewer tokens.</p>
 
-        <h3>Features</h3>
+        <h3>Syntax Highlighting</h3>
         <ul>
-            <li>Syntax highlighting for <code>.gcf</code> files</li>
-            <li>Highlights headers, section markers, symbol IDs, edge notation, strings, numbers, booleans, and more</li>
-            <li>Works in all JetBrains IDEs: IntelliJ IDEA, PyCharm, WebStorm, GoLand, RustRover, CLion, and others</li>
+            <li>Full highlighting for <code>.gcf</code> files in all JetBrains IDEs</li>
+            <li>Headers, section markers, flattened path columns (<code>"customer&gt;name"</code>)</li>
+            <li>Symbol IDs, edge notation, strings, numbers, booleans, null/absent markers</li>
+            <li>Attachment declarations, pipe separators, quoted strings with escapes</li>
         </ul>
+
+        <h3>The Numbers</h3>
+        <ul>
+            <li><b>50-92%</b> fewer tokens than JSON</li>
+            <li><b>100% comprehension</b> on every frontier model (Claude, GPT-5.5, Gemini, Grok)</li>
+            <li><b>15/16 wins</b> vs TOON across 16 real-world datasets</li>
+            <li><b>43 billion+</b> lossless round-trips across 17 serialization formats</li>
+            <li><b>6 SDK implementations:</b> Go, TypeScript, Python, Rust, Swift, Kotlin</li>
+        </ul>
+
+        <h3>Adopted By</h3>
+        <p>Speakeasy (Google, Verizon, Mistral AI, DocuSign, Vercel) &middot; OmniRoute (6.1K stars)
+        &middot; NeuroNest &middot; Open Data Products SDK (Linux Foundation)</p>
 
         <h3>Links</h3>
         <ul>
-            <li><a href="https://gcformat.com">GCF Documentation</a></li>
-            <li><a href="https://github.com/blackwell-systems/gcf">GCF Specification</a></li>
+            <li><a href="https://gcformat.com">Documentation</a></li>
+            <li><a href="https://gcformat.com/playground.html">Playground</a></li>
+            <li><a href="https://gcformat.com/guide/benchmarks.html">Benchmarks</a></li>
+            <li><a href="https://github.com/blackwell-systems/gcf">Specification</a></li>
         </ul>
     ]]></description>
 
