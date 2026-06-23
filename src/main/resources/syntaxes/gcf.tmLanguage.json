@@ -29,18 +29,18 @@
       }
     },
     "section-header": {
-      "comment": "Section headers: ## name, ## name [N], ## name [N]{field1,field2}",
-      "match": "^(##)\\s+(\\w+)(?:\\s+(\\[\\d+\\]))?(?:(\\{[^}]*\\}))?",
+      "comment": "Section headers: ## name [N]{fields}, ## [N]{fields}, ## name",
+      "match": "^(\\s*)(##)\\s+(?:(\\w+)\\s*)?(?:(\\[\\d+\\]))?(?:(\\{[^}]*\\}))?",
       "captures": {
-        "1": { "name": "keyword.control.section.gcf" },
-        "2": { "name": "entity.name.section.gcf" },
-        "3": { "name": "constant.numeric.count.gcf" },
-        "4": { "name": "variable.parameter.fields.gcf" }
+        "2": { "name": "keyword.control.section.gcf" },
+        "3": { "name": "entity.name.section.gcf" },
+        "4": { "name": "constant.numeric.count.gcf" },
+        "5": { "name": "variable.parameter.fields.gcf" }
       }
     },
     "attachment-declaration": {
-      "comment": "Attachment declaration lines: .fieldname {} or .fieldname {fields}",
-      "match": "^(\\.[a-zA-Z_]\\w*)\\s*(\\{[^}]*\\})",
+      "comment": "Attachment declaration lines: .fieldname {} or .fieldname [N]{fields} or .fieldname [N]",
+      "match": "^\\s*(\\.[a-zA-Z_]\\w*|\\.\".+?\")\\s*(\\{[^}]*\\}|\\[\\d+\\](?:\\{[^}]*\\})?)?",
       "captures": {
         "1": { "name": "entity.name.tag.attachment.gcf" },
         "2": { "name": "variable.parameter.fields.gcf" }

@@ -1,8 +1,8 @@
 <idea-plugin>
     <id>com.blackwellsystems.gcf</id>
     <name>GCF - Graph Compact Format</name>
-    <version>0.1.0</version>
-    <vendor email="daynajblackwell@gmail.com" url="https://blackwell-systems.com">Blackwell Systems</vendor>
+    <version>0.2.0</version>
+    <vendor email="dayna@blackwell-systems.com" url="https://blackwell-systems.com">Blackwell Systems</vendor>
 
     <description><![CDATA[
         <p>Syntax highlighting for <b>GCF (Graph Compact Format)</b>, the AI-native wire format for structured data.</p>
@@ -26,6 +26,12 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.2.0</h3>
+        <ul>
+            <li>Spec v3.2: flattened path columns ("customer>name") highlighted correctly</li>
+            <li>Fixed anonymous section headers (## [N]{fields} without name)</li>
+            <li>Fixed indented attachment declarations</li>
+        </ul>
         <h3>0.1.0</h3>
         <ul>
             <li>Initial release</li>
